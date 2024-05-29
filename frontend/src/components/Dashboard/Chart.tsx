@@ -2,6 +2,7 @@ import {Line} from 'react-chartjs-2';
 import {Chart as Chartjs, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip,Legend} from 'chart.js';
 
 Chartjs.register(LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
+
 const Chart = () => {
     const options = {
         responsive: true,

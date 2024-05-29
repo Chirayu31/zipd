@@ -2,27 +2,31 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from './Pages/Home'
 import Auth from './Pages/Auth'
 import { Toaster } from './components/ui/toaster'
-import Header from './components/Header'
 import Dashboard from './Pages/Dashboard'
+import Analytics from './Pages/Analytics'
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Home />,
   },
   {
-    path: '/auth',
+    path: "/auth",
     element: <Auth />,
   },
   {
-    path: '/about',
+    path: "/about",
     element: <div>About us</div>,
   },
   {
-    path: '/dashboard',
-    element: <Dashboard/>
-  }
-])
+    path: "/dashboard",
+    element: <Dashboard />,
+  },
+  {
+    path: "/analytics",
+    element: <Analytics />,
+  },
+]);
 
 function App() {
   return (
