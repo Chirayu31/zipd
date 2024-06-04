@@ -37,6 +37,16 @@ class URLService {
     return urlRecord ? true : false
   }
 
+  public static async checkShortUrlExists(shortUrl: string) {
+    const urlRecord = await prismaClient.url.findFirst({
+      where: {
+        shortUrl: shortUrl,
+      },
+    })
+
+    return urlRecord ? true : false
+  }
+
   public static async createShortUrl(urlData: z.infer<typeof urlInputSchema>) {
     const { url, shortUrl, userId } = urlData
     const user = await UserService.checkUser(userId)
@@ -50,6 +60,10 @@ class URLService {
     }
 
     if (shortUrl) {
+      if (await this.checkShortUrlExists(shortUrl)) {
+        throw new Error('Short URL already exists')
+      }
+
       const urlRecord = await prismaClient.url.create({
         data: {
           url: url,
@@ -81,6 +95,26 @@ class URLService {
     })
 
     return urlRecord
+  }
+
+  public static async deleteShortUrl(id: number) {
+    const urlRecord = await prismaClient.url.findUnique({
+      where: {
+        id: id,
+      },
+    })
+
+    if (!urlRecord) {
+      throw new Error('URL not found')
+    }
+
+    await prismaClient.url.delete({
+      where: {
+        id: id,
+      },
+    })
+
+    return true
   }
 
   private static generateShortUrl(url: string): string {

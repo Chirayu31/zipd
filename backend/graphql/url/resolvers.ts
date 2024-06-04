@@ -10,6 +10,11 @@ const mutations = {
     const res = await URLService.createShortUrl(data.url)
     return res.shortUrl
   },
+
+  deleteShortUrl: async (_: any, data: { id: number }) => {
+    const res = await URLService.deleteShortUrl(data.id)
+    return res
+  },
 }
 
 const queries = {}
